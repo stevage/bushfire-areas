@@ -25,7 +25,7 @@ export default {
         window.map = map;
         window.Map = this;
 
-        map.U.onLoad(() => {
+        map.U.onLoad(async () => {
             map.U.addGeoJSON('bushfire-areas');
             map.U.addFill('bushfire-fills', {
                 source: 'bushfire-areas',
@@ -57,20 +57,40 @@ export default {
                 window.FeatureInfo.feature = e.features[0];
             });
 
-            const updateData = () => {
+            // const service = new WFS({
+            //     url: 'https://dservices9.arcgis.com/ZFlIzBMHgtgl0EYj/arcgis/services/BushfireBoundaries/WFSServer',
+            // });
+            // const caps = await service.getCapabilities();
+            // console.log(caps);
+
+            const url = 'https://services9.arcgis.com/ZFlIzBMHgtgl0EYj/arcgis/rest/services/BushfireBoundaries/FeatureServer/0';
+
+            const service = new FeatureService({
+                url,
+            });
+
+            const updateData = async () => {
+
+                // const feature = await service.getFeature({
+                //     typeName: 'BushfireBBoundaries:National_Bushfire_Boundaries_Aggregated',
+                //     maxFeatures: 15,
+                //     outputFormat: 'GEOJSON'
+                // });
+                // console.log(feature);
+
                 service.get({
                     where: '1=1',
                 }, (err, featureCollection) => {
-                    console.log('Updated data');
+                    console.log('Updated data', featureCollection);
                     map.U.setData('bushfire-areas', featureCollection);
                 });
             };
             updateData();
-            window.setInterval(updateData, 30000);
+            window.setInterval(updateData, 10 * 60 * 1000);
         });
 
         // const service = new WFS({
-        //     url: 'https://dservices9.arcgis.com/ZFlIzBMHgtgl0EYj/arcgis/services/Bushfire_Boundaries/WFSServer',
+        //     url: 'https://dservices9.arcgis.com/ZFlIzBMHgtgl0EYj/arcgis/services/BushfireBoundaries/WFSServer',
         // });
         // const caps = await service.getCapabilities();
         // console.log(caps);
@@ -80,15 +100,11 @@ export default {
         //     outputFormat: 'GML3'
         // });
         // console.log (feature);
-        const url = 'https://services9.arcgis.com/ZFlIzBMHgtgl0EYj/arcgis/rest/services/Bushfire_Boundaries/FeatureServer/0';
         // const service = new FeatureService(url, {});
         // service.pages((err, pages) => {
         //     console.log(pages);
         // });
 
-        const service = new FeatureService({
-            url,
-        });
 
         
         

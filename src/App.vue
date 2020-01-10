@@ -5,14 +5,15 @@
         #middle.flex.flex-auto
             #sidebar.br.b--light-gray.overflow-auto.w3.w5-ns.pa2
                 .b.i This is just a demonstration of EMSINA's public fire areas 
-                a(href="https://services9.arcgis.com/ZFlIzBMHgtgl0EYj/arcgis/rest/services/Bushfire_Boundaries/FeatureServer/0") spatial endpoints
-                | .
+                    a(href="https://www.arcgis.com/home/item.html?id=bc87de02d8ae4911b070607838370184") spatial endpoints
+                    | .
                 p It is not intended for any other purpose, including decision making.
                 FeatureInfo
             #map-container.relative.flex-auto
                 Map
                 #overlay.absolute
-        #bottom.bt.b--light-gray.flex-none.h2
+        #bottom.bt.b--light-gray.flex-none
+            p(v-html="'Made by <a href=\"https://hire.stevebennett.me\">Steve Bennett.'")
 </template>
 
 <script>
