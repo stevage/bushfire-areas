@@ -3,7 +3,7 @@ module.exports = {
     baseUrl: '',
     devServer: {
         historyApiFallback: false,
-        https: true
+        // https: true
     }, 
     configureWebpack: {
         plugins: [
